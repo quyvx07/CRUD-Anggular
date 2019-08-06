@@ -1,0 +1,69 @@
+<p>home works!</p>
+<p *ngIf="isLogined">Bạn đã đăng nhập! Có thể truy cập
+  <a [routerLink]="['user/profile']">trang profile</a>
+</p>
+
+<button *ngIf="!isLogined" [routerLink]="['/login']">Login</button>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="categories/add">ADD</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <button *ngIf="!isLogined" [routerLink]="['/login']">Login</button>
+    <button *ngIf="isLogined" (click)="loguot()">Logout</button>
+  </div>
+</nav>
+<div class="row float-right">
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</div>
+<table class="table table-striped col-lg-12">
+  <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Tên Loại Bánh</th>
+    <th scope="col">Mô Tả</th>
+    <th scope="col">Ảnh</th>
+    <th scope="col">Chức Năng</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let category of categories">
+    <th>{{category.id}}</th>
+    <td>
+      <a (click)="detail(category.id)">{{category.name}}</a>
+    </td>
+    <td>{{category.description}}</td>
+    <td><img src="{{category.image}}" style="width: 99px"></td>
+    <td>
+      <button [routerLink]='["categories/edit", category.id ]' class="btn btn-info" style="margin-left: 10px">Edit
+      </button>
+      <button (click)="onDelete(category.id)" class="btn btn-danger">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
