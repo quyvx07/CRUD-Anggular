@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CategoryApiService} from '../../category-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Category} from '../category.class';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update',
@@ -13,7 +14,8 @@ export class UpdateComponent implements OnInit {
 
   constructor(private categoryApiService: CategoryApiService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -30,7 +32,9 @@ export class UpdateComponent implements OnInit {
     this.category['name'] = categoryFrom.name.value;
     this.category['description'] = categoryFrom.description.value;
     this.category['image'] = categoryFrom.image.value;
-    this.categoryApiService.update(this.category);
+    this.categoryApiService.update(this.category).subscribe(result => {
+      this.toastr.success('Thành Công');
+    });
     this.router.navigate(['']);
   }
 }

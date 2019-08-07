@@ -15,6 +15,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="categories/add">ADD</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="list()">List</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
@@ -32,12 +35,15 @@
       </li>
     </ul>
     <button *ngIf="!isLogined" [routerLink]="['/login']">Login</button>
-    <button *ngIf="isLogined" (click)="loguot()">Logout</button>
+    <li *ngIf="isLogined">
+      <button (click)="logout()">Logout</button>
+      <button [routerLink]="['user/profile']">Profile</button>
+    </li>
   </div>
 </nav>
 <div class="row float-right">
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <form class="form-inline my-2 my-lg-0" #searchForm (ngSubmit)="search(searchForm)">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="keyword">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </div>
